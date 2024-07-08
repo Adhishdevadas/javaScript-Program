@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number Guessing Game</title>
+</head>
+<body>
+  <h1>Number Guessing Game</h1>
+  <p id="message">Guess a number between 1 and 100:</p>
+  <input type="text" id="guessInput" />
+  <button onclick="makeGuess()">Guess</button>
+  <button onclick="resetGame()">Reset Game</button>
+
+  <script>
+    let targetNumber;
+    let attempts;
+
+    function startGame() {
+      targetNumber = Math.floor(Math.random() * 100) + 1;
+      attempts = 0;
+      document.getElementById("message").innerText = "Guess a number between 1 and 100:";
+      document.getElementById("guessInput").value = '';
+    }
+
+    function makeGuess() {
+      const guess = parseInt(document.getElementById("guessInput").value);
+      attempts++;
+
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        document.getElementById("message").innerText = "Please enter a valid number between 1 and 100.";
+      } else if (guess === targetNumber) {
+        document.getElementById("message").innerText = `Congratulations! You guessed the number in ${attempts} attempts. Play again?`;
+      } else if (guess < targetNumber) {
+        document.getElementById("message").innerText = "Too low! Try again.";
+      } else if (guess > targetNumber) {
+        document.getElementById("message").innerText = "Too high! Try again.";
+      }
+    }
+
+    function resetGame() {
+      startGame();
+    }
+
+    window.onload = startGame;
+  </script>
+</body>
+</html>
